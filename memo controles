@@ -43,3 +43,6 @@ JoystickButton11,  (Logitech Extreme 3D)
         // implement this new changed rotain
         transform.rotation = Quaternion.Euler(curRotatation.x, yrotn, curRotatation.z);
  
+ 
+ 
+ https://www.reddit.com/r/SteamVR/comments/a1v9e0/question_about_setting_up_custom_hand_models_with/

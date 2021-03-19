@@ -22,7 +22,7 @@ public class AvionController : MonoBehaviour
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
         float y = Input.GetAxisRaw("Yaw");
-        Debug.Log($"{x} ; {z} ; {y}"); ;
+        //Debug.Log($"{x} ; {z} ; {y}"); ;
 
         Vector3 curRotatation = transform.rotation.eulerAngles;
 
