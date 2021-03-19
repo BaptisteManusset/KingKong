@@ -71,16 +71,16 @@ public class myController : MonoBehaviour
 
         // get the value from the joystick     NOTE: it will be between -1.0 to +1.0
 
-        float yaw = Input.GetAxisRaw("Yaw");
-        Debug.Log($"{x} ; {z} ; {yaw}"); ;
+        //float yaw = Input.GetAxisRaw("Yaw");
+        //Debug.Log($"{x} ; {z} ; {yaw}"); ;
         
-        Vector3 curRotatation = transform.rotation.eulerAngles;
+        //Vector3 curRotatation = transform.rotation.eulerAngles;
 
-        curRotatation.x = curRotatation.x + x * 6f; 
-        curRotatation.y = curRotatation.y + yaw * 6f; 
-        curRotatation.z = curRotatation.z + z* 6f; 
+        //curRotatation.x = curRotatation.x + x * 6f; 
+        //curRotatation.y = curRotatation.y + yaw * 6f; 
+        //curRotatation.z = curRotatation.z + z* 6f; 
 
-        transform.rotation = Quaternion.Euler(curRotatation);
+        //transform.rotation = Quaternion.Euler(curRotatation);
 
     }
 }
