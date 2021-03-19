@@ -1,0 +1,45 @@
+JoystickButton0,  GetButton('Fire1'),  (Logitech Extreme 3D)
+JoystickButton4,  (Logitech Extreme 3D)
+JoystickButton5,  (Logitech Extreme 3D)
+JoystickButton3, JoystickButton5,  (Logitech Extreme 3D)
+JoystickButton2,  GetButton('Fire3'),  (Logitech Extreme 3D)
+JoystickButton0,  GetButton('Fire1'),  (Logitech Extreme 3D)
+JoystickButton6,  (Logitech Extreme 3D)
+JoystickButton7,  (Logitech Extreme 3D)
+JoystickButton8,  (Logitech Extreme 3D)
+JoystickButton9,  (Logitech Extreme 3D)
+JoystickButton10,  (Logitech Extreme 3D)
+JoystickButton11,  (Logitech Extreme 3D)
+
+
+
+
+        /* How to make and read the "yaw" axis on a Logitech Extreme 3D joystick in Unity 5.6
+         First, in unity
+         1. open input settings: in Edit->Project Settings->Input
+         2. right click on Horizontal and select "Duplicate" array element
+         3. open the newly created array element and
+          .a  change it's name to  Yaw
+          .b leave Desc labels blank
+          .c set button entries (there are 4 of these) blank.
+          .d set gravity to 3 and Dead at 0.001
+          .e change Sensitivity to 1  (you can play with this to see how it affects your movement)
+          .f Snap and Invert unchecked
+          .g Type is Joystick axis
+          .h Axis is 3rd axis  (<--- hey, don't miss this)
+          .i Joy Num is  Get motion from all Joysticks
+ 
+        IMPORTANT NOTE: This C# code only affects a single axis, it doesn't create the airplane bank and yaw in mutiple axis.
+        Now, in your C# code (probably in  void Update()
+        add the following lines to read and use the yaw axis
+        */
+ 
+        // get the value from the joystick     NOTE: it will be between -1.0 to +1.0
+        float yaw = Input.GetAxisRaw("Yaw");
+        // get the current rotation on the GameObject, as angles (0f to 360f)
+        Vector3 curRotatation = transform.rotation.eulerAngles;
+        // set new y rotation by adding the joystick yaw value to the current rotation
+        float yrotn= curRotatation.y + yaw * 6f;  // 6f is a scaling I've chosen. Smaller values means smaller changes
+        // implement this new changed rotain
+        transform.rotation = Quaternion.Euler(curRotatation.x, yrotn, curRotatation.z);
+ 
