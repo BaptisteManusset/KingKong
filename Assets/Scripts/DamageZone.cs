@@ -9,7 +9,6 @@ public class DamageZone : MonoBehaviour
         if (collision.collider.CompareTag("Bullet"))
         {
             GameManager.KKTakeDamage(1);
-            Destroy(collision.collider.gameObject);
         }
     }
 }

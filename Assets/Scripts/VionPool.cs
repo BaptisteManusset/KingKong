@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class VionPool : MonoBehaviour
 {
@@ -10,23 +11,22 @@ public class VionPool : MonoBehaviour
     [Range(1, 20)] public float radius = 10;
     [Range(0, 10)] public float offset = 0.0f;
 
-    //void Start() => Generate();
-
     public float rotationSpeed = 1;
 
+    public static VionPool instance;
 
+
+    public UnityEvent OnCollision;
 
     [ContextMenu("Generate")]
     private void Generate()
     {
-        for (int i = 0; i < quantity; i++)
-        {
-            Instantiate(vion, transform);
-        }
         for (int i = 0; i < transform.childCount; i++)
         {
             float angle = i * (Mathf.PI * 2f) / transform.childCount;
             transform.GetChild(i).localPosition = new Vector3(Mathf.Cos(offset + angle) * radius, 0, Mathf.Sin(offset + angle) * radius);
+            transform.GetChild(i).LookAt(transform.position);
+            transform.GetChild(i).Rotate(0, -90, 0);
         }
     }
 
@@ -45,11 +45,9 @@ public class VionPool : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            transform.GetChild(i).LookAt(transform.position);
-            transform.GetChild(i).Rotate(0, -90, 0);
-        }
+        instance = this;
+
+        SelectNewVion();
     }
 
     private void Update()
@@ -59,13 +57,21 @@ public class VionPool : MonoBehaviour
     }
 
     [ContextMenu("Enable First Child")]
-    public void EnableFirstChild()
+    public void SelectNewVion()
     {
-        Transform child = transform.GetChild(0);
-        if (child == null) return;
+        if (transform.childCount == 0)
+        {
+            GameManager.KKWin();
+            return;
+        }
 
-        VionController vion = child.GetComponent<VionController>();
-        if (vion == null) return;
-        vion.EnableControl();
+
+        OnCollision.Invoke();
+
+        vion.transform.position = transform.GetChild(0).transform.position;
+        vion.transform.rotation = transform.GetChild(0).transform.rotation;
+
+        Destroy(transform.GetChild(0).gameObject);
+
     }
 }

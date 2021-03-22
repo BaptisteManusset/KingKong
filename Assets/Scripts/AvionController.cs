@@ -14,6 +14,11 @@ public class AvionController : MonoBehaviour
 
     public bool IsGrabed = false;
 
+    bool on = false;
+
+    public Camera cam;
+
+
     Rigidbody rb;
 
     private void Awake()
@@ -23,6 +28,8 @@ public class AvionController : MonoBehaviour
 
         rb.isKinematic = true;
         rb.useGravity = false;
+
+        //Off();
     }
     void Update()
     {
@@ -51,5 +58,27 @@ public class AvionController : MonoBehaviour
         IsGrabed = true;
         rb.isKinematic = false;
         rb.useGravity = true;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("projectile"))
+        {
+            VionPool.instance.SelectNewVion();
+        }
+    }
+
+
+    public void On()
+    {
+        on = true;
+        cam.enabled = true;
+        transform.parent = null;
+    }
+
+    public void Off()
+    {
+        on = false;
+        cam.enabled = false;
     }
 }
