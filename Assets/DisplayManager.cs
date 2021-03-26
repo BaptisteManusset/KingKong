@@ -7,21 +7,8 @@ using UnityEngine;
 public class DisplayManager : MonoBehaviour
 {
 
-#if UNITY_STANDALONE_WIN
-    [DllImport("user32.dll", EntryPoint = "SetWindowPos")]
-    private static extern bool SetWindowPos(IntPtr hwnd, int hWndInsertAfter, int x, int Y, int cx, int cy, int wFlags);
-    [DllImport("user32.dll", EntryPoint = "FindWindow")]
-    public static extern IntPtr FindWindow(System.String className, System.String windowName);
-
-    public static void SetPosition(int x, int y, int resX = 0, int resY = 0)
-    {
-        SetWindowPos(FindWindow(null, "King Kong Vr"), 0, x, y, resX, resY, resX * resY == 0 ? 1 : 0);
-    }
-#endif
     void Awake()
     {
-        SetPosition(0, 0);
-
 
 
         Debug.Log("displays connected: " + Display.displays.Length);
@@ -36,6 +23,19 @@ public class DisplayManager : MonoBehaviour
 
     }
 
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F11))
+        {
+            Screen.fullScreen = !Screen.fullScreen;
+            Display.displays[0].SetRenderingResolution(Display.displays[0].systemWidth,
+                                           Display.displays[0].systemHeight);
+
+            Display.displays[1].SetRenderingResolution(Display.displays[1].systemWidth,
+                                           Display.displays[1].systemHeight);
+        }
+    }
 
 
 }

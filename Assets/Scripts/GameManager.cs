@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private FloatReference pv;
+    [SerializeField] public static float pv;
 
     public static GameManager instance;
     public static bool KKgameOver = false;
@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
         if (instance == null)
             instance = this;
 
-        pv.value = 100;
+        pv = 100;
 
 
         KKgameOver = false;
@@ -46,9 +46,9 @@ public class GameManager : MonoBehaviour
     {
         GameManager.instance.audio.Play("squeeze-toy-1", Random.Range(.8f, 1.2f), Random.Range(.8f, 1.2f));
 
-        instance.pv.value -= value;
+        pv -= value;
 
-        if (instance.pv.value <= 0)
+        if (pv <= 0)
         {
             KKGameOver();
         }

@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class floatFiller : MonoBehaviour
 {
-    [SerializeField] FloatReference pv;
+
     [SerializeField] Image fill;
     void Update()
     {
-        fill.fillAmount = pv.value / 100;
+        fill.fillAmount = GameManager.pv / 100;
     }
 }
